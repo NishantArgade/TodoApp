@@ -26,6 +26,9 @@ app.use(cookies());
 app.use(express.json()); // parse json (body) data
 app.use(express.urlencoded({ extended: true })); // parse form data
 
+app.get("/", (req, res) => {
+  res.send("Hello There");
+});
 app.use("/api/v1/user", userRouter); // use/connect userRoutes
 app.use("/api/v1/task", taskRouter); // use/connect userRoutes
 
