@@ -7,12 +7,14 @@ export const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email }).select("+password");
-    if (!user) return next(new ErrorHandler("Invalid Email or Password", 400));
+    if (!user) {
+      return next(new ErrorHandler("Invalid Email or Password", 400));
+    }
 
     const isMatched = await bcrypt.compare(password, user.password);
-    if (!isMatched)
+    if (!isMatched) {
       return next(new ErrorHandler("Invalid Email or Password", 400));
-
+    }
     setCookie(user, res, 200, `Welcome back, ${user.name}`);
   } catch (error) {
     next(error);

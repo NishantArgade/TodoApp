@@ -32,7 +32,9 @@ export const updateTask = async (req, res, next) => {
 
     if (!task) return next(new ErrorHandler("Invalid Id!", 400));
 
-    task.isCompleted = !task.isCompleted;
+    task.isCompleted = req.body.isCompleted;
+    task.title = req.body.title;
+    task.description = req.body.description;
     await task.save();
 
     res
